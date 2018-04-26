@@ -48,17 +48,10 @@ public class Littrestodm3 extends Stage {
 				"Millilitre"	
 				);
 		ObservableList<String> options2 = FXCollections.observableArrayList(
-				"Jours",
-				"Heures",
-				"Minutes",
-				"Secondes"	
-				);
-
-		ObservableList<String> options3 = FXCollections.observableArrayList(
-				"Téras",
-				"Gigas",
-				"Mégas",
-				"Kilos"	
+				"m³",
+				"dm³",
+				"cm³",
+				"mm³"	
 				);
 
 		//Combon Box
@@ -90,20 +83,6 @@ public class Littrestodm3 extends Stage {
 			}
 		});
 
-		ComboBox<String> cb3 = new ComboBox<String>(options3);
-		cb3.setValue(options3.get(1));
-
-		cb3.valueProperty().addListener(new ChangeListener<String>() {
-			public void changed(ObservableValue<? extends String> ov, String t, String t1){
-				switch (cb3.getSelectionModel().getSelectedItem()){
-				case "Téras": chat = 1000000000; break;
-				case "Gigas": chat = 1000000; break;
-				case "Mégas": chat = 1000; break;
-				case "Kilos": chat = 1; break;
-				}
-			}
-		});
-
 		//Horizontal Box
 
 		HBox kbsc = new HBox();
@@ -120,7 +99,6 @@ public class Littrestodm3 extends Stage {
 		resultatt.setPadding(new Insets(10));
 		resultatt.setSpacing(20);
 		resultatt.getChildren().addAll(bnCalculer, bnRetour);
-		resultatt.getChildren().addAll(lresulta,resulta, cb3);
 
 		//Textfield property
 
@@ -152,7 +130,7 @@ public class Littrestodm3 extends Stage {
 			affichagetext();
 		});
 
-		cb3.setOnAction(e -> {
+		cb2.setOnAction(e -> {
 			affichagetext();
 		});
 

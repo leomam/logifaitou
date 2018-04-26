@@ -35,6 +35,12 @@ public class Menu extends Stage {
 			c.show();
 		});
 		
+		bnLittres.setOnAction(e -> {
+			Littrestodm3 c = new Littrestodm3();
+			c.initOwner(this);
+			c.show();
+		});
+		
 		bnExit.setOnAction(e -> {
 			this.close();
 		});
