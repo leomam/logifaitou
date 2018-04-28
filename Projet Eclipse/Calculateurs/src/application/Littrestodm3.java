@@ -9,8 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -19,13 +19,10 @@ import javafx.stage.Stage;
 public class Littrestodm3 extends Stage {
 	private Button bnRetour = new Button("Retour");
 	private Button bnCalculer = new Button("Calculer");
-	private TextField kbs = new TextField();
-	private TextField nbeur = new TextField();
-	private TextField resulta = new TextField();
-	private Label lresulta = new Label("Résultat :");
-	private int multi = 1;
-	private int rat = 3600;
-	private int chat = 1000000;
+	private TextField volume = new TextField();
+	private TextField nbcube = new TextField();
+	private double multi = 1;
+	private double rat = 1;
 
 	public Littrestodm3() {
 
@@ -35,6 +32,8 @@ public class Littrestodm3 extends Stage {
 		Scene laScene = new Scene(creerContenu());
 		this.setScene(laScene);
 		this.sizeToScene();
+		this.getIcons().add(new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqCosUL5iACTRqWclFw94mTDS38dR1l9ZS4yYeATRS7TDDSehsuw"));
+
 	}
 
 	private Parent creerContenu() {
@@ -62,9 +61,11 @@ public class Littrestodm3 extends Stage {
 		cb1.valueProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> ov, String t, String t1){
 				switch (cb1.getSelectionModel().getSelectedItem()){
-				case "ko/s": multi = 1; break;
-				case "Mo/s": multi = 1000; break;
-				case "Go/s": multi = 1000000; break;
+				case "Littres": multi = 1; break;
+				case "Decilitre": multi = 0.001; break;
+				case "Centilitre": multi = 0.000001; break;
+				case "Millilitre": multi = 0.000000001; break;
+				
 				}
 			}
 		});
@@ -75,54 +76,54 @@ public class Littrestodm3 extends Stage {
 		cb2.valueProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> ov, String t, String t1){
 				switch (cb2.getSelectionModel().getSelectedItem()){
-				case "Jours": rat = 86400; break;
-				case "Heures": rat = 3600; break;
-				case "Minutes": rat = 60; break;
-				case "Secondes": rat = 1; break;
+				case "m³": rat = 0.001; break;
+				case "dm³": rat = 1; break;
+				case "cm³": rat = 1000; break;
+				case "mm³": rat = 1000000; break;
 				}
 			}
 		});
 
 		//Horizontal Box
 
-		HBox kbsc = new HBox();
-		kbsc.setPadding(new Insets(5));
-		kbsc.setSpacing(10);
-		kbsc.getChildren().addAll(kbs, cb1);
+		HBox volumec = new HBox();
+		volumec.setPadding(new Insets(5));
+		volumec.setSpacing(10);
+		volumec.getChildren().addAll(volume, cb1);
 
-		HBox nbheurc = new HBox();
-		nbheurc.setPadding(new Insets(5));
-		nbheurc.setSpacing(10);
-		nbheurc.getChildren().addAll(nbeur, cb2);
+		HBox nbcubec = new HBox();
+		nbcubec.setPadding(new Insets(5));
+		nbcubec.setSpacing(10);
+		nbcubec.getChildren().addAll(nbcube, cb2);
 
-		HBox resultatt = new HBox();
-		resultatt.setPadding(new Insets(10));
-		resultatt.setSpacing(20);
-		resultatt.getChildren().addAll(bnCalculer, bnRetour);
+		HBox boutonsC = new HBox();
+		boutonsC.setPadding(new Insets(10));
+		boutonsC.setSpacing(20);
+		boutonsC.getChildren().addAll(bnCalculer, bnRetour);
 
 		//Textfield property
 
-		kbs.textProperty().addListener(new ChangeListener<String>() {
+		volume.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, 
 					String newValue) {
 				if (!newValue.matches("[\\d.]*")) {
-					kbs.setText(newValue.replaceAll("[^\\d.]", ""));
+					volume.setText(newValue.replaceAll("[^\\d.]", ""));
 				}
 			}
 		});
 
-		nbeur.textProperty().addListener(new ChangeListener<String>() {
+		nbcube.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, 
 					String newValue) {
 				if (!newValue.matches("[\\d.]*")) {
-					nbeur.setText(newValue.replaceAll("[^\\d.]", ""));
+					nbcube.setText(newValue.replaceAll("[^\\d.]", ""));
 				}
 			}
 		});
 
-		resulta.setEditable(false);
+		nbcube.setEditable(false);
 
 		//Boutons Actions
 
@@ -142,9 +143,9 @@ public class Littrestodm3 extends Stage {
 
 		BorderPane root = new BorderPane();
 		root.setPadding(new Insets(10));
-		root.setTop(kbsc);
-		root.setCenter(nbheurc);
-		root.setBottom(resultatt);
+		root.setTop(volumec);
+		root.setCenter(nbcubec);
+		root.setBottom(boutonsC);
 
 		return root;
 
@@ -153,12 +154,10 @@ public class Littrestodm3 extends Stage {
 	//Transformer en Double
 
 	public void affichagetext(){
-		String converSt1 = kbs.getText();
-		String converSt2 = nbeur.getText();
+		String converSt1 = volume.getText();
 		double converDou1 = Double.parseDouble(converSt1);
-		double converDou2 = Double.parseDouble(converSt2);
-		converDou1=converDou1*converDou2*rat*multi/chat;
+		converDou1=converDou1*rat*multi;
 		converSt1 = String.valueOf(converDou1);
-		resulta.setText(converSt1);
+		nbcube.setText(converSt1);
 	}
 }

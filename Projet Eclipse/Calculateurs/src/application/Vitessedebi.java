@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -34,6 +35,8 @@ public class Vitessedebi extends Stage {
 		Scene laScene = new Scene(creerContenu());
 		this.setScene(laScene);
 		this.sizeToScene();
+		this.getIcons().add(new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqCosUL5iACTRqWclFw94mTDS38dR1l9ZS4yYeATRS7TDDSehsuw"));
+
 	}
 	
 	private Parent creerContenu() {

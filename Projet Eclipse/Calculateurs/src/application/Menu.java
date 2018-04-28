@@ -12,7 +12,8 @@ public class Menu extends Stage {
 	
 	private Button bnExit = new Button("Quitter");
 	private Button bnVitessedebit = new Button("Vitesse Débit");
-	private Button bnLittres = new Button("Littres to dcm3");
+	private Button bnLittres = new Button("Littres Conversion");
+	private Button bnNameGen = new Button("Génération de Nom");
 	
 	public Menu(){
 		this.setTitle("Logiciel qui fait tout");
@@ -23,11 +24,16 @@ public class Menu extends Stage {
 	}
 	
 	private Parent creerContenu() {
+		
+		bnVitessedebit.setPrefSize(170, 20);
+		bnLittres.setPrefSize(170, 20);
+		bnNameGen.setPrefSize(170, 20);
 
 		HBox menudeska = new HBox();
 		menudeska.setPadding(new Insets(5));
 		menudeska.setSpacing(10);
-		menudeska.getChildren().addAll(bnVitessedebit, bnLittres, bnExit);
+		menudeska.getChildren().addAll(bnVitessedebit, bnLittres, bnNameGen, bnExit);
+		
 
 		bnVitessedebit.setOnAction(e -> {
 			Vitessedebi c = new Vitessedebi();
@@ -37,6 +43,12 @@ public class Menu extends Stage {
 		
 		bnLittres.setOnAction(e -> {
 			Littrestodm3 c = new Littrestodm3();
+			c.initOwner(this);
+			c.show();
+		});
+		
+		bnNameGen.setOnAction(e -> {
+			NameGenerator c = new NameGenerator();
 			c.initOwner(this);
 			c.show();
 		});
