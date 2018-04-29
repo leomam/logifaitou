@@ -14,6 +14,7 @@ public class Menu extends Stage {
 	private Button bnVitessedebit = new Button("Vitesse Débit");
 	private Button bnLittres = new Button("Littres Conversion");
 	private Button bnNameGen = new Button("Génération de Nom");
+	private Button bnDroneAv = new Button("Drone Avion Contrôles");
 	
 	public Menu(){
 		this.setTitle("Logiciel qui fait tout");
@@ -28,11 +29,12 @@ public class Menu extends Stage {
 		bnVitessedebit.setPrefSize(170, 20);
 		bnLittres.setPrefSize(170, 20);
 		bnNameGen.setPrefSize(170, 20);
+		bnDroneAv.setPrefSize(170, 20);
 
 		HBox menudeska = new HBox();
 		menudeska.setPadding(new Insets(5));
 		menudeska.setSpacing(10);
-		menudeska.getChildren().addAll(bnVitessedebit, bnLittres, bnNameGen, bnExit);
+		menudeska.getChildren().addAll(bnVitessedebit, bnLittres, bnNameGen,bnDroneAv, bnExit);
 		
 
 		bnVitessedebit.setOnAction(e -> {
@@ -49,6 +51,12 @@ public class Menu extends Stage {
 		
 		bnNameGen.setOnAction(e -> {
 			NameGenerator c = new NameGenerator();
+			c.initOwner(this);
+			c.show();
+		});
+		
+		bnDroneAv.setOnAction(e -> {
+			DroneAvion c = new DroneAvion();
 			c.initOwner(this);
 			c.show();
 		});
